@@ -1,5 +1,4 @@
 #!/bin/bash
-TARGET=android-22
 
 real_path() {
   [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
@@ -19,6 +18,7 @@ SCRIPTPATH=$(real_path $REL_SCRIPT_PATH)
 CURLPATH="$SCRIPTPATH/../curl"
 export SSL_PATH="$1" #$SCRIPTPATH/../openssl"
 export NDK_ROOT="$ANDROID_NDK_ROOT"
+TARGET="$ANDROID_NDK_PLATFORM" #android-22
 
 if [ -z "$NDK_ROOT" ]; then
   echo "Please set your NDK_ROOT environment variable first"
