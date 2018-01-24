@@ -28,11 +28,11 @@ if [ "$WHICH" == "" ]; then
   exit 1
 fi
 
-if [ -z "$NDK_ROOT" ]; then
+if [ -z "$ANDROID_NDK_ROOT" ]; then
   echo "Please set your NDK_ROOT environment variable first"
   exit 1
 fi
-MYNDKDIR=$NDK_ROOT
+MYNDKDIR=$ANDROID_NDK_ROOT
 
 if [ -z "$ARCH" ]; then
   ARCH=armeabi
