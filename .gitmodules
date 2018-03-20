@@ -1,3 +1,4 @@
 [submodule "curl"]
 	path = curl
 	url = https://github.com/iFeelSmart/curl.git
+	branch = cross
