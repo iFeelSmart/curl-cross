@@ -176,8 +176,8 @@ if [ $EXITCODE -ne 0 ]; then
 fi
 
 # HAVE_GETPWUID no exist in android < 21 but seems detected ? so patched
-sed -i -e 's/#define HAVE_GETPWUID 1/#undef HAVE_GETPWUID/g' lib/curl_config.h
-sed -i -e 's/#define HAVE_GETPWUID_R 1/#undef HAVE_GETPWUID_R/g' lib/curl_config.h
+sed -i 's/#define HAVE_GETPWUID 1/#undef HAVE_GETPWUID/g' lib/curl_config.h
+sed -i 's/#define HAVE_GETPWUID_R 1/#undef HAVE_GETPWUID_R/g' lib/curl_config.h
 
 cd "$PWD"
 
