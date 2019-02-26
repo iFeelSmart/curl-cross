@@ -37,7 +37,7 @@ export CC="$XCODE/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang"
 DESTDIR="$SCRIPTPATH/../prebuilt/tvOS"
 mkdir -p $DESTDIR
 
-export APPLETVOS_DEPLOYMENT_TARGET="10.1"
+TVOS_MIN_SDK_VERSION=${TVOS_DEPLOYMENT_TARGET:-"10.1"}
 ARCHS=(arm64 x86_64)
 HOSTS=(arm x86_64)
 PLATFORMS=(AppleTVOS AppleTVSimulator)
@@ -46,11 +46,11 @@ SDK=(AppleTVOS AppleTVSimulator)
 #Build for all the architectures
 for (( i=0; i<${#ARCHS[@]}; i++ )); do
 	ARCH=${ARCHS[$i]}
-	export CFLAGS="-arch $ARCH -pipe -Os -gdwarf-2 -isysroot $XCODE/Platforms/${PLATFORMS[$i]}.platform/Developer/SDKs/${SDK[$i]}.sdk -mtvos-version-min=${APPLETVOS_DEPLOYMENT_TARGET} -fembed-bitcode -Werror=partial-availability"
+	export CFLAGS="-arch $ARCH -pipe -Os -gdwarf-2 -isysroot $XCODE/Platforms/${PLATFORMS[$i]}.platform/Developer/SDKs/${SDK[$i]}.sdk -mtvos-version-min=${TVOS_MIN_SDK_VERSION} -fembed-bitcode -Werror=partial-availability"
 	export LDFLAGS="-arch $ARCH -isysroot $XCODE/Platforms/${PLATFORMS[$i]}.platform/Developer/SDKs/${SDK[$i]}.sdk"
 	if [ "${PLATFORMS[$i]}" = "AppleTVSimulator" ]; then
-		export CPPFLAGS="-D__IPHONE_OS_VERSION_MIN_REQUIRED=${APPLETVOS_DEPLOYMENT_TARGET%%.*}0000"
-		export CPPFLAGS="-D__APPLETV_OS_VERSION_MIN_REQUIRED=${APPLETVOS_DEPLOYMENT_TARGET%%.*}0000"
+		export CPPFLAGS="-D__IPHONE_OS_VERSION_MIN_REQUIRED=${TVOS_MIN_SDK_VERSION%%.*}0000"
+		export CPPFLAGS="-D__APPLETV_OS_VERSION_MIN_REQUIRED=${TVOS_MIN_SDK_VERSION%%.*}0000"
 	fi
 	cd "$CURLPATH"
 	./configure	--host="${HOSTS[$i]}-apple-darwin" \
